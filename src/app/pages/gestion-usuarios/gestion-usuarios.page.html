@@ -83,7 +83,7 @@
       </div>
 
       <!-- FORMULARIO -->
-       
+      
       <form class="widget-box" (ngSubmit)="guardarUsuario()">
         <h1 class="page-title">Creación / Edición de usuarios</h1>
         <ion-item>
@@ -121,6 +121,55 @@
           Cancelar
         </ion-button>
       </form>
+      <!-- FORMULARIO PARA GESTIÓN DE TABLAS ADICIONALES -->
+<form class="widget-box" style="margin-top: 2rem;">
+  <h1 class="page-title">Gestión de Tablas Adicionales</h1>
+
+  <ion-item>
+    <ion-select label="Seleccionar Tabla" label-placement="stacked"
+      [(ngModel)]="tablaSeleccionada"
+      (ionChange)="cargarDatosTabla()"
+      name="tabla" interface="popover">
+  
+      <ion-select-option value="clientes">Clientes</ion-select-option>
+      <ion-select-option value="estados-servicio">Estados de Servicio</ion-select-option>
+      <ion-select-option value="sistemas-operativo">Sistemas Operativos</ion-select-option>
+      <ion-select-option value="tipos-hardware">Tipos de Hardware</ion-select-option>
+      <ion-select-option value="tipos-servicio">Tipos de Servicio</ion-select-option>
+      <ion-select-option value="tipos-usuario">Tipos de Usuario</ion-select-option>
+      
+    </ion-select>
+  </ion-item>
+
+  <ion-list *ngIf="datosTabla.length > 0">
+    <ion-item *ngFor="let item of datosTabla; let i = index">
+      <ion-input
+        [(ngModel)]="item.descripcion"
+        name="descripcion{{i}}"
+        placeholder="Descripción"
+        label="Descripción"
+        label-placement="stacked">
+      </ion-input>
+      <ion-buttons slot="end">
+        <ion-button
+        fill="clear"
+        color="primary"
+        [disabled]="!item.descripcion"
+        (click)="actualizarItemTabla(item)">
+        <ion-icon
+          slot="icon-only"
+          [name]="item.esNuevo ? 'checkmark-outline' : 'save-outline'">
+        </ion-icon>
+      </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" type="button" class="menu-btn active" style="margin-top: 1rem;" (click)="crearNuevoItemTabla()">
+    Agregar Nuevo
+  </ion-button>
+</form>
     </main>
   </div>
 </ion-content>
+

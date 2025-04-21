@@ -6,13 +6,20 @@ import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { Chart, registerables } from 'chart.js';
 import { addIcons } from 'ionicons';
-import { createOutline, trashOutline } from 'ionicons/icons';
+import {
+  createOutline,
+  trashOutline,
+  checkmarkOutline,
+  saveOutline
+} from 'ionicons/icons';
 
 Chart.register(...registerables);
 
 addIcons({
   'create-outline': createOutline,
-  'trash-outline': trashOutline
+  'trash-outline': trashOutline,
+  'checkmark-outline': checkmarkOutline,
+  'save-outline': saveOutline
 });
 
 bootstrapApplication(AppComponent, {

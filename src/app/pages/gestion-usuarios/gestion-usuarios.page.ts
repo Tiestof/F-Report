@@ -15,6 +15,8 @@ import { IonicModule } from '@ionic/angular';
 export class GestionUsuariosPage implements OnInit {
   usuarioNombre: string = '';
   usuarioPerfil: string = '';
+  tablaSeleccionada: string = '';
+  datosTabla: any[] = [];
 
   usuarios: any[] = [];
   tiposUsuario: any[] = [];
@@ -77,7 +79,7 @@ export class GestionUsuariosPage implements OnInit {
 
   editarUsuario(usuario: any) {
     this.modoEdicion = true;
-    this.formulario = { ...usuario }; // Clona los datos
+    this.formulario = { ...usuario };
   }
 
   confirmarEliminar(usuario: any) {
@@ -105,7 +107,88 @@ export class GestionUsuariosPage implements OnInit {
     };
   }
 
-  // Navegaciones menú
+  // ----------------------------
+  // GESTIÓN DE TABLAS ADICIONALES
+  // ----------------------------
+
+  cargarDatosTabla() {
+    if (!this.tablaSeleccionada) return;
+  
+    this.http.get<any[]>(`http://localhost:3000/api/${this.tablaSeleccionada}`).subscribe({
+      next: (datos) => {
+        this.datosTabla = datos.map((item) => {
+          let id = item.id; // fallback si no lo encontramos
+          if ('id_cliente' in item) id = item.id_cliente;
+          else if ('id_tipo_servicio' in item) id = item.id_tipo_servicio;
+          else if ('id_tipo_hardware' in item) id = item.id_tipo_hardware;
+          else if ('id_estado_servicio' in item) id = item.id_estado_servicio;
+          else if ('id_sistema_operativo' in item) id = item.id_sistema_operativo;
+          else if ('id_tipo_usuario' in item) id = item.id_tipo_usuario;
+  
+          let descripcion = '';
+          switch (this.tablaSeleccionada) {
+            case 'clientes':
+              descripcion = item.nombre_cliente;
+              break;
+            case 'sistemas-operativo':
+              descripcion = item.nombre_sistema;
+              break;
+            case 'tipos-usuario':
+              descripcion = item.descripcion_usuario;
+              break;
+            default:
+              descripcion = item.descripcion;
+          }
+  
+          return { id, descripcion };
+        });
+      },
+      error: (err) => {
+        console.error("Error al cargar datos:", err);
+      }
+    });
+  }
+
+  crearNuevoItemTabla() {
+    const nuevoItem = {
+      id: null,
+      descripcion: '',
+      esNuevo: true // se usa para distinguir si es POST
+    };
+    this.datosTabla.unshift(nuevoItem);
+  }
+
+  actualizarItemTabla(item: any) {
+    const esNuevo = item.esNuevo;
+    const endpoint = `http://localhost:3000/api/${this.tablaSeleccionada}` + (esNuevo ? '' : `/${item.id}`);
+
+    let body: any;
+    switch (this.tablaSeleccionada) {
+      case 'clientes':
+        body = { nombre_cliente: item.descripcion };
+        break;
+      case 'sistemas-operativo':
+        body = { nombre_sistema: item.descripcion };
+        break;
+      case 'tipos-usuario':
+        body = { descripcion_usuario: item.descripcion };
+        break;
+      default:
+        body = { descripcion: item.descripcion };
+        break;
+    }
+
+    const metodo = esNuevo ? this.http.post : this.http.put;
+    metodo.call(this.http, endpoint, body).subscribe({
+      next: () => this.cargarDatosTabla(),
+      error: (err) => console.error("Error al guardar:", err)
+    });
+  }
+
+  // ----------------------------
+  // NAVEGACIÓN MENÚ
+  // ----------------------------
+
   irACrearTarea() { this.router.navigate(['/crear-tarea']); }
   irADashboard() { this.router.navigate(['/supervisor']); }
   irAReportes() { this.router.navigate(['/ver-reportes']); }
