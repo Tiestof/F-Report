@@ -1,0 +1,86 @@
+<!-- MENÚ LATERAL PARA VISTA WEB -->
+<ion-menu side="start" menuId="main" contentId="main-content" class="menu-lateral">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title style="font-size: 1.2rem;">Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div class="profile-section">
+      <div class="user-name">{{ usuarioNombre }}<br><strong>{{ usuarioPerfil }}</strong></div>
+    </div>
+
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irACrearTarea()">CREAR TAREA</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAReportes()">VER TAREAS / REPORTES</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAGestionUsuarios()">GESTIÓN USUARIOS</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAInformes()">CREACIÓN DE INFORMES</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn active" (click)="irADashboard()">DASHBOARD</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn cerrar-sesion" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+  </ion-content>
+</ion-menu>
+
+<!-- CABECERA PARA VISTA MÓVIL -->
+<ion-header class="header-movil">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titulo-movil">
+      <div class="user-info">
+        <strong>{{ usuarioNombre }}</strong><br>
+        {{ usuarioPerfil }}
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <div class="dashboard-wrapper">
+    <!-- Menú lateral visible solo en escritorio -->
+    <aside class="sidebar-web">
+      <div class="profile-section">
+        <div class="user-name">{{ usuarioNombre }}<br><strong>{{ usuarioPerfil }}</strong></div>
+      </div>
+
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irACrearTarea()">CREAR TAREA</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAReportes()">VER TAREAS / REPORTES</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAGestionUsuarios()">GESTIÓN USUARIOS</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAInformes()">CREACIÓN DE INFORMES</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn active" (click)="irADashboard()">DASHBOARD</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn cerrar-sesion" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+    </aside>
+
+    <!-- ZONA PRINCIPAL -->
+    <main class="main-content" id="main-content">
+      <h1 class="page-title">Dashboard</h1>
+
+      <div class="resumen-grid">
+        <div class="resumen-card">
+          <h3>Reportes no finalizados hoy</h3>
+          <div class="resumen-numero">{{ totalPendientesHoy }}</div>
+        </div>
+        <div class="resumen-card">
+          <h3>Servicios del mes</h3>
+          <div class="resumen-numero">{{ totalServiciosMes }}</div>
+        </div>
+      </div>
+
+      <div class="widget-box">
+        <canvas baseChart
+          [data]="barChartData"
+          [type]="barChartType"
+          [options]="barChartOptions">
+        </canvas>
+      </div>
+
+      <div class="widget-box">
+        <canvas baseChart
+          [data]="cargaTecnicosChartData"
+          [type]="cargaTecnicosChartType"
+          [options]="cargaTecnicosChartOptions">
+        </canvas>
+      </div>
+    </main>
+  </div>
+</ion-content>

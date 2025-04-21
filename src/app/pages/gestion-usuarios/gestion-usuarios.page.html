@@ -1,0 +1,126 @@
+<!-- MENÚ LATERAL PARA VISTA WEB -->
+<ion-menu side="start" menuId="main" contentId="main-content" class="menu-lateral">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title style="font-size: 1.2rem;">Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div class="profile-section">
+      <div class="user-name">{{ usuarioNombre }}<br><strong>{{ usuarioPerfil }}</strong></div>
+    </div>
+
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irACrearTarea()">CREAR TAREA</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAReportes()">VER TAREAS / REPORTES</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn active" (click)="irAGestionUsuarios()">GESTIÓN USUARIOS</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAInformes()">CREACIÓN DE INFORMES</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irADashboard()">DASHBOARD</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn cerrar-sesion" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+  </ion-content>
+</ion-menu>
+
+<!-- CABECERA PARA VISTA MÓVIL -->
+<ion-header class="header-movil">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titulo-movil">
+      <div class="user-info">
+        <strong>{{ usuarioNombre }}</strong><br>
+        {{ usuarioPerfil }}
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<ion-content [fullscreen]="true" class="dashboard-content" id="main-content">
+  <div class="dashboard-wrapper">
+    <!-- Menú visible solo escritorio -->
+    <aside class="sidebar-web">
+      <div class="profile-section">
+        <div class="user-name">{{ usuarioNombre }}<br><strong>{{ usuarioPerfil }}</strong></div>
+        <ion-icon name="person-circle-outline" class="icon-user"></ion-icon>
+      </div>
+
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irACrearTarea()">CREAR TAREA</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAReportes()">VER TAREAS / REPORTES</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn active" (click)="irAGestionUsuarios()">GESTIÓN USUARIOS</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAInformes()">CREACIÓN DE INFORMES</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irADashboard()">DASHBOARD</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn cerrar-sesion" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+    </aside>
+
+    <!-- ZONA PRINCIPAL -->
+    <main class="main-content">
+      <h1 class="page-title">Gestión de Usuarios</h1>
+
+      <!-- LISTADO DE USUARIOS -->
+      <div class="widget-box">
+        <h1 class="page-title">Usuarios</h1>
+
+        <div *ngIf="usuarios.length === 0">
+          <p>No hay usuarios registrados.</p>
+        </div>
+        <ion-list *ngIf="usuarios.length > 0">
+          <ion-item *ngFor="let u of usuarios">
+            <ion-label>
+              <strong>{{ u.nombre }}</strong> - RUT: {{ u.rut }} - {{ u.email }}  - Tipo: {{ u.id_tipo_usuario }}
+            </ion-label>
+
+            <ion-buttons slot="end">
+              <ion-button fill="clear" color="primary-contrast" (click)="editarUsuario(u)">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="danger" (click)="confirmarEliminar(u)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <!-- FORMULARIO -->
+       
+      <form class="widget-box" (ngSubmit)="guardarUsuario()">
+        <h1 class="page-title">Creación / Edición de usuarios</h1>
+        <ion-item>
+          <ion-input label="RUT" label-placement="stacked" [(ngModel)]="formulario.rut" name="rut" [readonly]="modoEdicion"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Nombre" label-placement="stacked" [(ngModel)]="formulario.nombre" name="nombre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Email" label-placement="stacked" [(ngModel)]="formulario.email" name="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="number" label="Edad" label-placement="stacked" [(ngModel)]="formulario.edad" name="edad"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Clave" label-placement="stacked" [(ngModel)]="formulario.clave" name="clave" [type]="modoEdicion ? 'password' : 'text'"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-select label="Tipo de Usuario" label-placement="stacked" [(ngModel)]="formulario.id_tipo_usuario" name="tipo_usuario" interface="popover">
+            <ion-select-option *ngFor="let t of tiposUsuario" [value]="t.id_tipo_usuario">
+              {{ t.descripcion_usuario }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="menu-btn active" style="margin-top: 1rem;">
+          {{ modoEdicion ? 'Actualizar Usuario' : 'Crear Usuario' }}
+        </ion-button>
+        <ion-button expand="block" fill="outline" color="medium" (click)="resetFormulario()" *ngIf="modoEdicion">
+          Cancelar
+        </ion-button>
+      </form>
+    </main>
+  </div>
+</ion-content>

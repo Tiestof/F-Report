@@ -1,0 +1,64 @@
+.login-content {
+    --background: #1B3A46;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-container {
+    text-align: center;
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+  
+  .login-title {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .login-box {
+    background: #EEEEEE;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+  }
+  
+  ion-item {
+    --background: transparent;
+    --highlight-color-focused: #65558F;
+    --highlight-color-invalid: #D9534F;
+    --border-color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 1.2rem;
+    padding-left: 4px;
+  }
+  
+  ion-input {
+    --color: #000000;
+    font-size: 16px;
+  }
+  
+  ion-input::part(native) {
+    color: #000000;
+  }
+  
+  .btn-login {
+    --background: #D08A2D;
+    --color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1rem;
+    border-radius: 6px;
+    transition: 0.2s;
+  }
+  
+  .btn-login:hover {
+    filter: brightness(1.1);
+  }
+  

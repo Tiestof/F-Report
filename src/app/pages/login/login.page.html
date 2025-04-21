@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="login-container">
+    <h1 class="login-title">F-REPORT</h1>
+
+    <div class="login-box">
+      <form (submit)="login()">
+        <ion-item>
+          <ion-input
+            label="RUT"
+            labelPlacement="stacked"
+            [(ngModel)]="rut"
+            name="rut"
+            placeholder="Ej: 12345678-9"
+            [clearOnEdit]="true"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            label="Clave"
+            labelPlacement="stacked"
+            type="password"
+            [(ngModel)]="clave"
+            name="clave"
+            placeholder="********"
+            [clearOnEdit]="true"
+            required
+          ></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="btn-login">LOG IN</ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

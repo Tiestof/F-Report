@@ -1,0 +1,109 @@
+<!-- MENÚ LATERAL PARA VISTA WEB -->
+<ion-menu side="start" menuId="main" contentId="main-content" class="menu-lateral">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title style="font-size: 1.2rem;">Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div class="profile-section">
+      <div class="user-name">{{ usuarioNombre }}<br><strong>{{ usuarioPerfil }}</strong></div>
+    </div>
+
+    <ion-button expand="block" fill="solid" class="menu-btn active" (click)="irACrearTarea()">CREAR TAREA</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAReportes()">VER TAREAS / REPORTES</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAGestionUsuarios()">GESTIÓN USUARIOS</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAInformes()">CREACIÓN DE INFORMES</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn" (click)="irADashboard()">DASHBOARD</ion-button>
+    <ion-button expand="block" fill="solid" class="menu-btn cerrar-sesion" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+  </ion-content>
+</ion-menu>
+
+<!-- CABECERA PARA VISTA MÓVIL -->
+<ion-header class="header-movil">
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="titulo-movil">
+      <div class="user-info">
+        <strong>{{ usuarioNombre }}</strong><br>
+        {{ usuarioPerfil }}
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<ion-content [fullscreen]="true" class="dashboard-content" id="main-content">
+  <div class="dashboard-wrapper">
+    <!-- Menú lateral visible solo en escritorio -->
+    <aside class="sidebar-web">
+      <div class="profile-section">
+        <div class="user-name">{{ usuarioNombre }}<br><strong>{{ usuarioPerfil }}</strong></div>
+        <ion-icon class="icon-user"></ion-icon>
+      </div>
+
+      <ion-button expand="block" fill="solid" class="menu-btn active" (click)="irACrearTarea()">CREAR TAREA</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAReportes()">VER TAREAS / REPORTES</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAGestionUsuarios()">GESTIÓN USUARIOS</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irAInformes()">CREACIÓN DE INFORMES</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn" (click)="irADashboard()">DASHBOARD</ion-button>
+      <ion-button expand="block" fill="solid" class="menu-btn cerrar-sesion" (click)="cerrarSesion()">CERRAR SESIÓN</ion-button>
+    </aside>
+
+    <!-- ZONA PRINCIPAL -->
+    <main class="main-content">
+      <h1 class="page-title">Asignar Nueva Tarea</h1>
+
+      <form #form="ngForm" (ngSubmit)="crearTarea()" class="widget-box">
+        <ion-item>
+          <ion-select label="Técnico" label-placement="stacked" [(ngModel)]="tarea.rut_usuario" name="tecnico" interface="popover" required>
+            <ion-select-option *ngFor="let tecnico of tecnicos" [value]="tecnico.rut">
+              {{ tecnico.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-select label="Cliente" label-placement="stacked" [(ngModel)]="tarea.id_cliente" name="cliente" interface="popover" required>
+            <ion-select-option *ngFor="let cliente of clientes" [value]="cliente.id_cliente">
+              {{ cliente.nombre_cliente }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- ✅ NUEVO CAMPO: Fecha de ejecución de la tarea -->
+        <ion-item>
+          <ion-input type="date" label="Fecha Servicio" label-placement="stacked" [(ngModel)]="tarea.fecha_reporte" name="fecha_reporte" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-select label="Hora inicio" label-placement="stacked" [(ngModel)]="tarea.hora_inicio" name="hora_inicio" interface="popover" required>
+            <ion-select-option *ngFor="let h of horas" [value]="h">{{ h }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Dirección" label-placement="stacked" [(ngModel)]="tarea.direccion" name="direccion" placeholder="Ingrese dirección" required></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-select label="Tipo de Servicio" label-placement="stacked" [(ngModel)]="tarea.id_tipo_servicio" name="tipo_servicio" interface="popover" required>
+            <ion-select-option *ngFor="let servicio of servicios" [value]="servicio.id_tipo_servicio">
+              {{ servicio.descripcion }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="menu-btn active" [disabled]="!form.valid" style="margin-top: 1.5rem;">
+          Confirmar Tarea
+        </ion-button>
+
+        <div *ngIf="confirmacion" style="margin-top: 1rem; text-align: center; color: #1B3A46; font-weight: bold;">
+          {{ confirmacion }}
+        </div>
+      </form>
+    </main>
+  </div>
+</ion-content>

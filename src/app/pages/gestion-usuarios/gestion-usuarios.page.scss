@@ -1,0 +1,135 @@
+.dashboard-content {
+    --background: #1B3A46;
+  }
+  
+  .dashboard-wrapper {
+    display: flex;
+    height: 120%;
+    flex-direction: row;
+  
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+  
+  .sidebar-web {
+    width: 240px;
+    background-color: #1B3A46;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  
+  .profile-section {
+    text-align: center;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+  
+  .user-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .icon-user {
+    font-size: 3rem;
+    color: white;
+  }
+  
+  .menu-btn {
+    --background: #65558F;
+    --color: white;
+    font-weight: bold;
+    width: 100%;
+    font-size: 0.85rem;
+    border-radius: 6px;
+  
+    @media (max-width: 768px) {
+      width: 100%;
+      font-size: 1rem;
+    }
+  }
+  
+  .menu-btn.active {
+    --background: #D08A2D;
+  }
+  
+  .main-content {
+    background-color: #EEEEEE;
+    flex: 1;
+    padding: 2rem;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+  
+    @media (max-width: 768px) {
+      padding: 1rem;
+      border-radius: 0;
+    }
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #111111;
+    margin-bottom: 1.5rem;
+  }
+  
+  .widget-box {
+    background: white;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(132, 130, 130, 0.916);
+  }
+  
+  ion-list {
+    margin-top: 1rem;
+  
+    ion-item {
+      --border-color: #ccc;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  ion-button[color="warning"] {
+    --color: #fff;
+    --background: #f0ad4e;
+  }
+  
+  ion-button[color="danger"] {
+    --color: #fff;
+    --background: #d9534f;
+  }
+  
+  .header-movil {
+    display: none;
+  
+    @media (max-width: 768px) {
+      display: block;
+    }
+  
+    .titulo-movil {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  
+    .icon-user-movil {
+      font-size: 2rem;
+      color: #1B3A46;
+    }
+  
+    .user-info {
+      font-size: 0.9rem;
+      color: #0c0d0e;
+    }
+  }
+  
