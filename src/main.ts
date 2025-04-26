@@ -10,7 +10,8 @@ import {
   createOutline,
   trashOutline,
   checkmarkOutline,
-  saveOutline
+  saveOutline,
+  personCircleOutline
 } from 'ionicons/icons';
 
 Chart.register(...registerables);
@@ -19,7 +20,8 @@ addIcons({
   'create-outline': createOutline,
   'trash-outline': trashOutline,
   'checkmark-outline': checkmarkOutline,
-  'save-outline': saveOutline
+  'save-outline': saveOutline,
+  'person-circle-outline': personCircleOutline
 });
 
 bootstrapApplication(AppComponent, {

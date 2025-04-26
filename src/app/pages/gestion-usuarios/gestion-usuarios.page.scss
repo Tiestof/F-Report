@@ -91,11 +91,14 @@
   
   ion-list {
     margin-top: 1rem;
+    border-radius: 10px;
+   
   
     ion-item {
       --border-color: #ccc;
-      border-radius: 6px;
-      margin-bottom: 0.5rem;
+      border-radius: 10px;
+            --color: #fafafa;
+      --background: #656563;
     }
   }
   
@@ -129,7 +132,7 @@
   
     .user-info {
       font-size: 0.9rem;
-      color: #0c0d0e;
+      color: #f8fafc;
     }
   }
   
