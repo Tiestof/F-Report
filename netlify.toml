@@ -4,7 +4,7 @@
   # Usamos ng build en lugar de ionic build
   command = "npm install && ng build --configuration production"
   # Y ajustamos el directorio de publicación a 'www'
-  publish = "www" # <--- ¡Asegúrate de cambiar esto!
+  publish = "www/browser" # <--- ¡Asegúrate de cambiar esto!
 
 [[redirects]]
   from = "/*"
