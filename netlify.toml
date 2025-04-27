@@ -1,0 +1,13 @@
+# netlify.toml
+
+[build]
+  # Comando para instalar dependencias y construir el proyecto para producción
+  command = "npm install && ionic build --prod"
+  # Directorio que Netlify debe publicar (debe coincidir con outputPath en angular.json)
+  publish = "www"
+
+# Regla de redirección para manejar las rutas de Angular (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
