@@ -1,12 +1,11 @@
-# netlify.toml
+# netlify.toml (Prueba con ng build)
 
 [build]
-  # Comando para instalar dependencias y construir el proyecto
-  command = "npm install && ionic build"
-  # Directorio REAL donde están los archivos compilados
-  publish = "www/browser" # <--- Corregido aquí
+  # Usamos ng build en lugar de ionic build
+  command = "npm install && ng build --configuration production"
+  # Y ajustamos el directorio de publicación a 'www'
+  publish = "www" # <--- ¡Asegúrate de cambiar esto!
 
-# Regla de redirección (sigue igual y es necesaria)
 [[redirects]]
   from = "/*"
   to = "/index.html"
