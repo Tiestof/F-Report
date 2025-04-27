@@ -2,7 +2,7 @@
 
 [build]
   # Comando para instalar dependencias y construir el proyecto
-  command = "npm install && ionic build --prod"
+  command = "npm install && ionic build"
   # Directorio REAL donde están los archivos compilados
   publish = "www/browser" # <--- Corregido aquí
 
